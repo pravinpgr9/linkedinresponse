@@ -1,8 +1,14 @@
-import ContactForm from './components/ContactForm'; 
+import ContactForm from "./components/ContactForm";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <ContactForm/>    
+    <>
+      <Header />
+      <ContactForm />
+      <Footer />
+    </>
   );
 }
 
