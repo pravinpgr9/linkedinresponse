@@ -12,12 +12,6 @@ const ContactForm = () => {
     desc: "",
     city: "",
   });
-  const [formErrors, setFormErrors] = useState({
-    name: "",
-    email: "",
-    desc: "",
-    city: "",
-  });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [apiResponse, setApiResponse] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -25,67 +19,38 @@ const ContactForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
+    console.log(name);
+    console.log(value);
+
     setFormData({ ...formData, [name]: value });
-  };
-
-  const validateForm = () => {
-    let errors = {};
-    let isValid = true;
-
-    if (!formData.name.trim()) {
-      errors.name = "Name is required";
-      isValid = false;
-    }
-
-    if (!formData.email.trim()) {
-      errors.email = "Email is required";
-      isValid = false;
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = "Email address is invalid";
-      isValid = false;
-    }
-
-    if (!formData.desc.trim()) {
-      errors.desc = "Message is required";
-      isValid = false;
-    }
-
-    if (!formData.city.trim()) {
-      errors.city = "City is required";
-      isValid = false;
-    }
-
-    setFormErrors(errors);
-    return isValid;
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true); // Set loading to true when form is submitted
+    try {
+      const response = await Axios.post(
+        "https://node-rest-api-one.vercel.app/api/linkedin",
+        formData
+      );
 
-    if (validateForm()) {
-      setLoading(true); // Set loading to true when form is submitted
-      try {
-        const response = await Axios.post(
-          "https://node-rest-api-one.vercel.app/api/linkedin",
-          formData
-        );
+      console.log(response.data);
 
-        setApiResponse(response.data);
-        setFormSubmitted(true);
+      setApiResponse(response.data);
+      setFormSubmitted(true);
 
-        setFormData({
-          // Reset formData to initial state
-          name: "",
-          email: "",
-          desc: "",
-          city: "",
-        });
-      } catch (error) {
-        console.error("API request error:", error);
-        // Handle API errors gracefully (e.g., display an error message to the user)
-      } finally {
-        setLoading(false); // Set loading to false after API call is complete
-      }
+      setFormData({
+        // Reset formData to initial state
+        name: "",
+        email: "",
+        desc: "",
+        city: "",
+      });
+    } catch (error) {
+      console.error("API request error:", error);
+      // Handle API errors gracefully (e.g., display an error message to the user)
+    } finally {
+      setLoading(false); // Set loading to false after API call is complete
     }
   };
 
@@ -104,50 +69,51 @@ const ContactForm = () => {
               <h5 className="text-center">Sync With Us</h5>
               <Form onSubmit={handleSubmit} className="custom-form">
                 <Form.Group controlId="name">
-                  <Form.Label>Your Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={formData.name}
-                    onChange={handleChange}
-                  />
-                  {formErrors.name && (
-                    <p className="text-danger">{formErrors.name}</p>
-                  )}
-                </Form.Group>
-                <Form.Group controlId="email">
-                  <Form.Label>Your Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
-                  {formErrors.email && (
-                    <p className="text-danger">{formErrors.email}</p>
-                  )}
-                </Form.Group>
-                <Form.Group controlId="desc">
-                  <Form.Label>Your Message</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    value={formData.desc}
-                    onChange={handleChange}
-                  />
-                  {formErrors.desc && (
-                    <p className="text-danger">{formErrors.desc}</p>
-                  )}
-                </Form.Group>
-                <Form.Group controlId="city">
-                  <Form.Label>City</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={formData.city}
-                    onChange={handleChange}
-                  />
-                  {formErrors.city && (
-                    <p className="text-danger">{formErrors.city}</p>
-                  )}
-                </Form.Group>
+  <Form.Label>Your Name</Form.Label>
+  <Form.Control
+    type="text"
+    value={formData.name}
+    onChange={(e) =>
+      setFormData({ ...formData, name: e.target.value })
+    }
+    required // Adding required attribute for mandatory field
+  />
+</Form.Group>
+<Form.Group controlId="email">
+  <Form.Label>Your Email</Form.Label>
+  <Form.Control
+    type="email"
+    value={formData.email}
+    onChange={(e) =>
+      setFormData({ ...formData, email: e.target.value })
+    }
+    required // Adding required attribute for mandatory field
+    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" // Adding pattern for email validation
+  />
+</Form.Group>
+<Form.Group controlId="desc">
+  <Form.Label>Your Message</Form.Label>
+  <Form.Control
+    as="textarea"
+    rows={3}
+    value={formData.desc}
+    onChange={(e) =>
+      setFormData({ ...formData, desc: e.target.value })
+    }
+    required // Adding required attribute for mandatory field
+  />
+</Form.Group>
+<Form.Group controlId="city">
+  <Form.Label>City</Form.Label>
+  <Form.Control
+    type="text"
+    value={formData.city}
+    onChange={(e) =>
+      setFormData({ ...formData, city: e.target.value })
+    }
+    required // Adding required attribute for mandatory field
+  />
+</Form.Group>
 
                 <Button
                   type="submit"
