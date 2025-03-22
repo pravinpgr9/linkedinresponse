@@ -1,3 +1,33 @@
+/* Ensure the body and html take full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make the root container flexible */
+#root {
+  display: flex;
+  flex-direction: column; 
+}
+
+/* Make the main content take up all available space */
+.main-content {
+  flex: 1;
+}
+
+/* Sticky footer styles */
+footer {
+  background-color: #343a40; /* Dark background */
+  color: white;
+  text-align: center;
+  padding: 10px 15px;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Header Styles */
 .header-container {
   background-color: #f8f9fa; /* Light gray background */
   padding: 20px;
@@ -17,6 +47,7 @@
   border-top: 1px solid #ccc; /* Gray divider */
 }
 
+/* Form Styling */
 .form-container {
   background-color: #ffffff;
   padding: 20px;
@@ -32,6 +63,7 @@
   margin-top: 10px;
 }
 
+/* Image Styles */
 .image-container {
   border-radius: 10px;
   overflow: hidden;
@@ -43,11 +75,13 @@
   height: auto;
 }
 
+/* Footer Text */
 .footer-text {
   font-weight: bold;
   color: #fff;
 }
 
+/* Message Colors */
 .green-message {
   color: green;
 }
@@ -56,6 +90,7 @@
   color: red;
 }
 
+/* Fade-out Effect */
 .fade-out {
   animation: fadeOut 5s forwards;
 }
@@ -66,5 +101,101 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+
+/* Custom CSS for additional styling */
+.hero-section {
+  padding: 2rem 0;
+}
+
+.card {
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap');
+
+.marathi-text {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+
+/* HOME SECTION CSS */
+
+/* Custom CSS for hover effects and additional styling */
+.hover-effect {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-effect:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cta-button {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #fff;
+  color: #0d6efd;
+}
+
+.hero-section {
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+}
+
+.cta-section {
+  background: linear-gradient(to right, #0d6efd, #0b5ed7);
+}
+
+
+/* Custom Navbar Styling */
+.custom-navbar {
+  height: 70px; /* Set a fixed height for the navbar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  background-color: #f083ca;
+}
+
+.navbar-brand-custom {
+  font-size: 1.5rem; /* Increase brand font size */
+  font-weight: bold; /* Make the brand name bold */
+  color: #ffffff !important; /* Ensure brand text is white */
+}
+
+.nav-link-custom {
+  font-size: 1rem; /* Set font size for nav links */
+  font-weight: 500; /* Medium font weight for links */
+  color: #ffffff !important; /* Ensure nav links are white */
+  margin: 0 10px; /* Add spacing between nav links */
+  padding: 10px 15px; /* Add padding for better clickability */
+  border-radius: 5px; /* Rounded corners for links */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.nav-link-custom:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+}
+
+/* Adjust the toggle button color */
+.navbar-dark .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.5); /* Light border for the toggle button */
+}
+
+/* Ensure the navbar is responsive */
+@media (max-width: 992px) {
+  .custom-navbar {
+    height: auto; /* Allow height to adjust on smaller screens */
+  }
+
+  .nav-link-custom {
+    margin: 5px 0; /* Adjust spacing for mobile view */
   }
 }
